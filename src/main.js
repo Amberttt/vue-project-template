@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// 兼容 ES6
 import 'babel-polyfill'
 import Element from 'element-ui'
-
+// Element 样式
+import 'element-ui/lib/theme-chalk/index.css';
+// 路由守卫
 import '@/utils/routerGuards'
 
 Vue.use(Element);

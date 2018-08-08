@@ -9,6 +9,11 @@ export default new Router({
     routes: [
         {
             path: '/',
+            name: 'Root',
+            component: Main
+        },{
+            path: '/main',
+            redirect: '/',
             name: 'Main',
             component: Main
         },{

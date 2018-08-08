@@ -2,6 +2,7 @@
 import axios from 'axios';
 import router from '@/router';
 import Vue from 'vue';
+import { Notification } from 'element-ui';
 // 创建axios实例
 const service = axios.create({
     headers: {
@@ -33,28 +34,41 @@ service.interceptors.response.use(
     response => {
         const res = response.data;
         const status = res.status;
+        // Notification({
+        //     message: res.message || res.description,
+        //     type: 'error',
+        //     duration: 3 * 1000
+        // });
+        // 是否成功
+        if(status){
+            return res.data;
+        }else{
+            return Promise.reject(res);
+        }
+
         // if(res.status !== 0){
         //   return Promise.reject(res);
         // }else{
         //   return res.data;
         // }
-        if(status == 0){
-            return res.data;
-        }else if(status == 10001 || status == 30004 || status == 10004){
-            router.push('/noKAccount');
-            return false;
-        }else if(status == 10002){
-            router.push('/readyData');
-            return false;
-        }
-        // else if(status == 10004){
-        //   Vue.$vux.toast.text(res.msg);
-        //   return false;
+        
+        // if(status == 0){
+        //     return res.data;
+        // }else if(status == 10001 || status == 30004 || status == 10004){
+        //     router.push('/noKAccount');
+        //     return false;
+        // }else if(status == 10002){
+        //     router.push('/readyData');
+        //     return false;
         // }
-        else{
-            //  status == 1 或 10003 的情况
-            return Promise.reject(res);
-        }
+        // // else if(status == 10004){
+        // //   Vue.$vux.toast.text(res.msg);
+        // //   return false;
+        // // }
+        // else{
+        //     //  status == 1 或 10003 的情况
+        //     return Promise.reject(res);
+        // }
     },
     error => {
         // console.log(res.msg);
